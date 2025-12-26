@@ -83,3 +83,16 @@ To stop and **delete the database volume** (reset data):
 ```bash
 docker-compose down -v
 ```
+
+### demo
+
+#### Pages
+![Login Page](/public/assets/images/login_page.png)
+![Answer to task 1](/public/assets/images/task1.png)
+![Answer to task 2](/public/assets/images/task2.png)
+![Answer to task 3](/public/assets/images/task3.png)
+
+#### Encrypted Database
+User passwords and secure identities are encrypted
+![users](/public/assets/images/db_ids.png)
+![secure_identities](/public/assets/images/db_users.png)
