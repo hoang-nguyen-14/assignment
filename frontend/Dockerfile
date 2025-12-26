@@ -1,23 +1,19 @@
-# Stage 0, "build-stage", based on Node.js, to build and compile the frontend
-FROM node:24 AS build-stage
+FROM node:20-alpine
 
 WORKDIR /app
 
-COPY package*.json /app/
+# Copy package files
+COPY package*.json ./
 
+# Install dependencies
 RUN npm install
 
-COPY ./ /app/
+# Copy source code
+COPY . .
 
-ARG VITE_API_URL=${VITE_API_URL}
+# Expose the Vite default port
+EXPOSE 5173
 
-RUN npm run build
-
-
-# Stage 1, based on Nginx, to have only the compiled app, ready for production with Nginx
-FROM nginx:1
-
-COPY --from=build-stage /app/dist/ /usr/share/nginx/html
-
-COPY ./nginx.conf /etc/nginx/conf.d/default.conf
-COPY ./nginx-backend-not-found.conf /etc/nginx/extra-conf.d/backend-not-found.conf
+# Run the dev server
+# --host is required to expose the app outside the container
+CMD ["npm", "run", "dev", "--", "--host"]
